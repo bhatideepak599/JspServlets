@@ -192,45 +192,48 @@ public class TransactionDAO {
 
 	public List<Transaction> getTransactions(String startDate, String endDate, String account) {
 		List<Transaction> transactions = new ArrayList<Transaction>();
-
+		
 		String sql = "SELECT * FROM transactions WHERE date BETWEEN ? AND ? AND (senderAccNo = ? OR receiverAccNo = ?)";
 
-		try (Connection conn = dataSource.getConnection();
-				PreparedStatement preparedStatement = conn.prepareStatement(sql)) {
+        
 
-			preparedStatement.setString(1, startDate);
-			preparedStatement.setString(2, endDate);
-			preparedStatement.setString(3, account);
-			preparedStatement.setString(4, account);
-			ResultSet rs = preparedStatement.executeQuery();
+        try (Connection conn =dataSource.getConnection();
+             PreparedStatement preparedStatement = conn.prepareStatement(sql)) {
 
-			while (rs.next()) {
-				Transaction transaction = new Transaction();
-				String a = rs.getString(2);
-				if (a.equals(account)) {
-					transaction.setSenderAccNo(a);
-					transaction.setType("debit");
-					transaction.setReceiverAccNo(rs.getString(3));
-				} else {
-					transaction.setSenderAccNo(rs.getString(3));
-					transaction.setType("credit");
-					transaction.setReceiverAccNo(a);
-				}
+        	 preparedStatement.setString(1, startDate);
+             preparedStatement.setString(2, endDate);
+             preparedStatement.setString(3, account);
+             preparedStatement.setString(4, account);
+            ResultSet rs = preparedStatement.executeQuery();
 
-				transaction.setId(rs.getInt("id"));
-				transaction.setDate(rs.getDate("date"));
-				transaction.setAmount(rs.getDouble("amount"));
-				transaction.setRbalance(rs.getDouble(7));
-				transaction.setSbalance(rs.getDouble(8));
-				// System.out.println(transaction);
-				transactions.add(transaction);
-			}
-		} catch (SQLException e) {
-			e.printStackTrace();
-		}
-
-		return transactions;
-
+            while (rs.next()) {
+                Transaction transaction = new Transaction();
+                String a=rs.getString(2);
+                if(a.equals(account)) {
+                	transaction.setSenderAccNo(a);
+                	transaction.setType("debit");
+                	 transaction.setReceiverAccNo(rs.getString(3));
+                }
+                else {
+                	transaction.setSenderAccNo(rs.getString(3));
+                	transaction.setType("credit");
+                	 transaction.setReceiverAccNo(a);
+                }
+                
+                transaction.setId(rs.getInt("id"));
+                transaction.setDate(rs.getDate("date"));
+                transaction.setAmount(rs.getDouble("amount"));
+                transaction.setRbalance(rs.getDouble(7));
+                transaction.setSbalance(rs.getDouble(8));
+                //System.out.println(transaction);
+                transactions.add(transaction);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        
+        return transactions;
+		
 	}
 
 }

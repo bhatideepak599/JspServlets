@@ -165,7 +165,7 @@ public class AdminController extends HttpServlet {
 		String lastName = request.getParameter("lastName");
 		String email = request.getParameter("email");
 		String password = request.getParameter("password");
-		String accountNumber = UniqueAccount.accountNumber(dataSource);
+		String accountNumber = UniqueAccount.accountNumber();
 		
 		double balance = Double.parseDouble(request.getParameter("balance"));
 		Customer newCustomer = new Customer();

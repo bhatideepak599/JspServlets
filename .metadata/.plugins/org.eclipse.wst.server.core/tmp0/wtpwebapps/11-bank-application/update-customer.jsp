@@ -68,7 +68,12 @@ body {
 					class="form-control" id="balance" name="balance"
 					value="${theCustomer.balance}">
 			</div>
-			<button type="submit" class="btn btn-primary">Submit</button>
+			<div class="text-center">
+				<button type="submit" class="btn btn-primary">Submit</button>
+				<button type="button" class="btn btn-secondary "
+					onclick="window.history.back();">Back</button>
+			</div>
+			
 		</form>
 	</div>
 

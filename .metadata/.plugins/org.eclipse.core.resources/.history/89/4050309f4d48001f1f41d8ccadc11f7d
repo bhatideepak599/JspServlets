@@ -1,43 +1,24 @@
 package com.bank.util;
 
-import java.sql.Connection;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.sql.Statement;
 import java.util.HashSet;
 import java.util.Random;
 import java.util.Set;
 
 import javax.sql.DataSource;
 
-import com.bank.model.Customer;
-
 public class UniqueAccount {
 	private static final Set<String> generatedAccountNumbers = new HashSet<>();
 	private static final Random random = new Random();
-	
-	
-
+	private DataSource dataSource;
 	
 
-	public static String accountNumber(DataSource dataSource) {
+	public UniqueAccount(DataSource dataSource) {
+		super();
+		this.dataSource = dataSource;
+	}
+
+	public static String accountNumber() {
 		String accountNumber;
-		try {
-
-			Connection conn = dataSource.getConnection();
-			Statement stmt = conn.createStatement();
-			String sql = "select accountNumber from customers";
-			ResultSet rs = stmt.executeQuery(sql);
-			while (rs.next()) {
-				String s=rs.getString("accountNumber");
-				generatedAccountNumbers.add(s);
-			}
-			rs.close();
-			stmt.close();
-			conn.close();
-		} catch (SQLException e) {
-			e.printStackTrace();
-		}
 
 		do {
 			accountNumber = generateRandomNumber();
