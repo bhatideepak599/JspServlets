@@ -1,0 +1,130 @@
+package com.techlabs.controller;
+
+import java.io.IOException;
+import java.sql.SQLException;
+import java.util.List;
+
+import javax.annotation.Resource;
+import javax.servlet.RequestDispatcher;
+import javax.servlet.ServletException;
+import javax.servlet.annotation.WebServlet;
+import javax.servlet.http.HttpServlet;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import javax.sql.DataSource;
+
+import com.techlabs.dao.StudentDbUtil;
+import com.techlabs.entity1.Student;
+
+@WebServlet("/Student")
+public class StudentController extends HttpServlet {
+	private static final long serialVersionUID = 1L;
+
+	private StudentDbUtil studentDbUtil;
+
+	@Resource(name = "jdbc/employee")
+	private DataSource dataSource;
+
+	@Override
+	public void init() throws ServletException {
+		super.init();
+		studentDbUtil = new StudentDbUtil(dataSource);
+	}
+
+	protected void doGet(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
+
+		String command;
+		command = request.getParameter("command");
+
+		if (command == null) {
+			command = "list";
+		}
+		switch (command) {
+		case "add":
+			try {
+				addStudent(request, response);
+			} catch (SQLException | ServletException | IOException e) {
+
+				e.printStackTrace();
+			}
+			break;
+			
+		case "update":
+			try {
+
+				updateStudent(request, response);
+			} catch (SQLException | ServletException | IOException e) {
+
+				e.printStackTrace();
+			}
+			
+		case "delete":
+			try {
+				deleteStudent(request, response);
+			} catch (SQLException | ServletException | IOException e) {
+
+				e.printStackTrace();
+			}
+			break;
+		default:
+			listStudents(request, response);
+		}
+
+	}
+
+	protected void doPost(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
+
+		doGet(request, response);
+	}
+
+	private void listStudents(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
+
+		List<Student> studentlist = studentDbUtil.getStudents();
+		request.setAttribute("theStudentList", studentlist);
+		RequestDispatcher requestDispatcher = request.getRequestDispatcher("/empFile.jsp");
+		requestDispatcher.forward(request, response);
+	}
+
+	private void addStudent(HttpServletRequest request, HttpServletResponse response)
+			throws SQLException, ServletException, IOException {
+		String name = request.getParameter("name");
+		String dept = request.getParameter("dept");
+		double salary = Double.parseDouble(request.getParameter("salary"));
+
+		Student student = new Student(name, salary, dept);
+		// System.out.println(student);
+
+		boolean isAdded = studentDbUtil.addStudent(student);
+		response.sendRedirect(request.getContextPath() + "/Student");
+
+	}
+
+	private void updateStudent(HttpServletRequest request, HttpServletResponse response)
+			throws SQLException, ServletException, IOException {
+		
+		int id=Integer.parseInt(request.getParameter("Id"));
+		System.out.println(id);
+//		double id = Double.parseDouble(request.getParameter("Id"));
+//		String name = request.getParameter("name");
+//		String dept = request.getParameter("dept");
+//		double salary = Double.parseDouble(request.getParameter("salary"));
+//
+//		Student st = new Student((int) id, name, salary, dept);
+//		
+//		boolean isUpdated = studentDbUtil.updateStudent(st);
+//		response.sendRedirect(request.getContextPath()+"/Student");
+
+	}
+
+	private void deleteStudent(HttpServletRequest request, HttpServletResponse response)
+			throws SQLException, ServletException, IOException {
+//		int id = Integer.parseInt(request.getParameter("Id"));
+//		boolean isDeleted=studentDbUtil.deleteStudent(id);
+//		response.sendRedirect(request.getContextPath()+"/Student");
+
+	}
+
+}

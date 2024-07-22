@@ -1,0 +1,18 @@
+
+Jul 18, 2024 23:07:39.97 NEW SESSION
+Jul 18, 2024 23:07:39.97 Created TensorFlow Lite XNNPACK delegate for CPU.
+Jul 18, 2024 23:08:32.74 Created TensorFlow Lite XNNPACK delegate for CPU.
+Jul 18, 2024 23:43:55.23 Created TensorFlow Lite XNNPACK delegate for CPU.
+Jul 18, 2024 23:45:03.61 [21824:14536:0718/234503.618:ERROR:interface_endpoint_client.cc(722)] Message 0 rejected by interface blink.mojom.WidgetHost
+Jul 18, 2024 23:48:10.90 [21824:14536:0718/234810.900:ERROR:interface_endpoint_client.cc(722)] Message 1 rejected by interface blink.mojom.WidgetHost
+Jul 19, 2024 24:06:34.07 [21824:7200:0719/000634.076:ERROR:connection_factory_impl.cc(483)] ConnectionHandler failed with net error: -2
+Jul 19, 2024 09:04:45.60 [21824:7200:0719/090445.604:ERROR:connection_factory_impl.cc(483)] ConnectionHandler failed with net error: -2
+Jul 19, 2024 09:06:40.85 [21824:14536:0719/090640.856:ERROR:interface_endpoint_client.cc(722)] Message 0 rejected by interface blink.mojom.WidgetHost
+Jul 19, 2024 09:06:40.85 [21824:14536:0719/090640.856:ERROR:interface_endpoint_client.cc(722)] Message 1 rejected by interface blink.mojom.WidgetHost
+Jul 19, 2024 09:06:59.76 [21824:14536:0719/090659.769:ERROR:interface_endpoint_client.cc(722)] Message 1 rejected by interface blink.mojom.WidgetHost
+Jul 19, 2024 09:30:28.01 Created TensorFlow Lite XNNPACK delegate for CPU.
+Jul 19, 2024 09:42:46.89 [25316:25416:0719/094246.894:ERROR:interface_endpoint_client.cc(722)] Message 1 rejected by interface blink.mojom.WidgetHost
+Jul 19, 2024 09:53:15.87 [25316:12008:0719/095315.879:ERROR:connection_factory_impl.cc(483)] ConnectionHandler failed with net error: -2
+Jul 19, 2024 10:28:10.60 [25316:25416:0719/102810.601:ERROR:device_event_log_impl.cc(196)] [10:28:10.596] USB: usb_service_win.cc:105 SetupDiGetDeviceProperty({{A45C254E-DF1C-4EFD-8020-67D146A850E0}, 6}) failed: Element not found. (0x490)
+Jul 19, 2024 10:48:53.47 [25316:25416:0719/104853.469:ERROR:interface_endpoint_client.cc(722)] Message 1 rejected by interface blink.mojom.WidgetHost
+Jul 19, 2024 10:51:13.81 [25316:25416:0719/105113.814:ERROR:interface_endpoint_client.cc(722)] Message 1 rejected by interface blink.mojom.WidgetHost

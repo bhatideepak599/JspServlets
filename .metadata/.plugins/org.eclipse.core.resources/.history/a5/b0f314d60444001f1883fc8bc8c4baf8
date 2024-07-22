@@ -1,0 +1,43 @@
+package com.techlabs.dao;
+
+import java.sql.Connection;
+import java.sql.ResultSet;
+import java.sql.Statement;
+import java.util.ArrayList;
+import java.util.List;
+
+import javax.sql.DataSource;
+
+import com.techlabs.entity1.Student;
+
+public class StudentDbUtil {
+	private DataSource dataSource;
+
+	public StudentDbUtil(DataSource dataSource) {
+		super();
+		this.dataSource = dataSource;
+	}
+
+	public List<Student> getStudents(){
+		List<Student> students=new ArrayList<Student>();
+		try {
+			
+			Connection conn =dataSource.getConnection();
+			Statement stmt=conn.createStatement();
+			String sql="select * from table1";
+			
+			ResultSet rs=stmt.executeQuery(sql);
+			
+			while(rs.next()) {
+				int id=rs.getInt("id");
+				String name=rs.getString("name");
+				double salary=rs.getDouble("salary");
+				String dept=rs.getString("dept");
+				
+			}
+		
+		return students;
+		
+			
+		}
+}

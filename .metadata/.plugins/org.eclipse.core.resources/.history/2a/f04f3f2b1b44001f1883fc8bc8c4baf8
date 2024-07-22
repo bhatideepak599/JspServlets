@@ -1,0 +1,64 @@
+package com.techlabs.dao;
+
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
+import java.util.ArrayList;
+import java.util.List;
+
+import javax.sql.DataSource;
+
+import com.techlabs.entity1.Student;
+
+public class StudentDbUtil {
+	private DataSource dataSource;
+
+	public StudentDbUtil(DataSource dataSource) {
+		super();
+		this.dataSource = dataSource;
+	}
+
+	public List<Student> getStudents() {
+		List<Student> students = new ArrayList<Student>();
+		try {
+
+			Connection conn = dataSource.getConnection();
+			Statement stmt = conn.createStatement();
+			String sql = "select * from table1";
+
+			ResultSet rs = stmt.executeQuery(sql);
+
+			while (rs.next()) {
+				int id = rs.getInt(1);
+				String name = rs.getString(2);
+				double salary = rs.getDouble(3);
+				String dept = rs.getString(4);
+
+				Student st = new Student(id, name, salary, dept);
+				students.add(st);
+
+			}
+		} catch (SQLException e) {
+
+			e.printStackTrace();
+		}
+		// System.out.println(students);
+		return students;
+
+	}
+
+	public boolean addStudent(Student student) throws SQLException {
+		Connection conn = dataSource.getConnection();
+		String sql="insert into table1 (name,salary,department) values(?,?,?)";
+		PreparedStatement prepstmt=conn.prepareStatement(sql);
+		prepstmt.setString(1, student.getName());
+		prepstmt.setDouble(2, student.getSalary());
+		prepstmt.setString(3, student.getDept());
+		
+		int res=prepstmt.executeUpdate();
+		return res==1?true:false;
+		
+	}
+}
