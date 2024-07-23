@@ -16,6 +16,9 @@ public class UserLogin {
 		this.user_name = user_name;
 		this.password = password;
 	}
+	public UserLogin() {
+		
+	}
 	public String getUser_name() {
 		return user_name;
 	}

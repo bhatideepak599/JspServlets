@@ -1,4 +1,6 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -44,6 +46,10 @@
             <label for="amount">Amount:</label>
             <input type="number" class="form-control" id="amount" name="amount" required>
         </div>
+        		 <!-- Display error message if it exists -->
+		    <c:if test="${not empty errorMessage}">
+		        <p style="color: green;">${errorMessage}</p>
+		    </c:if>
          <div class="text-center">
 		<button type="submit" class="btn btn-primary">Transfer</button>
 		<button type="button" class="btn btn-secondary mt-3" onclick="window.history.back();">Back</button>

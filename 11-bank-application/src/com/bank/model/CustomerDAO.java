@@ -243,37 +243,35 @@ public class CustomerDAO {
 	}
 
 	public boolean amountExists(double amount, String sender) throws SQLException {
-		Connection con = dataSource.getConnection();
-		String sql = "select * from customers where accountNumber = ?";
-		PreparedStatement stmt = con.prepareStatement(sql);
-
-		stmt.setString(1, sender);
-		ResultSet rs = stmt.executeQuery();
-		while (rs.next()) {
-			double balance = rs.getDouble("balance");
-			if (balance > amount) {
-				con.close();
-				return true;
-			}
-			con.close();
-			return false;
-		}
-		return false;
-	}
+	    double balance = getBalanceByAccount(sender);
+	      if(balance >= amount) {
+	        return true;
+	      }
+	      return false;
+	  }
 
 	public boolean receiverAccountExists(String receiver) throws SQLException {
-		Connection con = dataSource.getConnection();
-		String sql = "select * from customers where accountNumber = ?";
-		PreparedStatement stmt = con.prepareStatement(sql);
-
-		stmt.setString(1, receiver);
-		ResultSet rs = stmt.executeQuery();
-		if (rs != null) {
-			con.close();
-			return true;
-		}
-		con.close();
-		return false;
+		 Connection con;
+		    try {
+		      con = dataSource.getConnection();
+		      String sql = "select * from customers where accountNumber = ?";
+		      PreparedStatement stmt = con.prepareStatement(sql);
+		      
+		      stmt.setString(1, receiver);
+		      ResultSet rs = stmt.executeQuery();
+		      while(rs.next()) {
+		        int test = rs.getInt(1);
+		        if(test != 0) {
+		          con.close();
+		          return true;
+		        }
+		        con.close();
+		        return false;
+		      }
+		    } catch (SQLException e) {
+		      e.printStackTrace();
+		    }
+		    return false;
 	}
 
 }

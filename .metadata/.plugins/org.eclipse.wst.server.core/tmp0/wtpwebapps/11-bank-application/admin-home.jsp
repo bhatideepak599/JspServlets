@@ -30,7 +30,7 @@
 </head>
 <body>
 	<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-		<a class="navbar-brand" href="#">Bank Admin</a>
+		<a class="navbar-brand" href="#">Home </a>
 		<div class="collapse navbar-collapse">
 			<ul class="navbar-nav ml-auto">
 

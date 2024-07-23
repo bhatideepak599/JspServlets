@@ -93,7 +93,7 @@ h1 {
 				</c:forEach>
 			</tbody>
 		</table>
-		<button type="button" class="btn btn-secondary" onclick="window.history.back();">Back To Admin Home</button>
+		<button type="button" class="btn btn-secondary" onclick="window.history.back();">Back</button>
 	</div>
 
 	<!-- Bootstrap JS, Popper.js, and jQuery -->

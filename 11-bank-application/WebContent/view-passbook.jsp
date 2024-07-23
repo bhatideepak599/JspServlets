@@ -56,7 +56,7 @@
 						<th>Type</th>
 						<th>Detail</th>
 						<th>Amount</th>
-						<th>New Balance</th>
+						<th>Balance</th>
 					</tr>
 				</thead>
 				<tbody>

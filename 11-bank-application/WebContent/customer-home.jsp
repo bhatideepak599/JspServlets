@@ -14,7 +14,7 @@
 <body>
   <%
      String user_name = (String) session.getAttribute("user_name");
-  	String name = (String) session.getAttribute("name");
+  	String name = (String) session.getAttribute("first_name");
   %>
   <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
     <a class="navbar-brand" href="#">Home</a>

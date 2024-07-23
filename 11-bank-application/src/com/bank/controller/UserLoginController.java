@@ -41,10 +41,8 @@ public class UserLoginController extends HttpServlet {
 			verifyUser(request, response);
 			break;
 		}
-		
-	}
 
-	
+	}
 
 	private void verifyUser(HttpServletRequest request, HttpServletResponse response) throws IOException {
 		String user_type = request.getParameter("user_type");
@@ -52,17 +50,22 @@ public class UserLoginController extends HttpServlet {
 		String password = request.getParameter("password");
 
 		UserLogin user = new UserLogin(user_name, password);
-
-		boolean isUser = userDbUtil.verifyUser(user);
-		if (user_type.equals("admin") && user_name.equals("admin") && password.equals("admin")) {
+		UserLogin isUser = null;
+		boolean isAdmin = false;
+		
+		if (user_type.equals("customer")) {
+			isUser = userDbUtil.verifyCustomer(user);
+		} else {
+			isAdmin = userDbUtil.verifyAdmin(user);
+		}
+		if (user_type.equals("admin") && isAdmin) {
 			HttpSession session = request.getSession();
 			session.setAttribute("username", user_name);
 			session.setAttribute("user_type", "admin");
 			response.sendRedirect("AdminController");
-		} else if (user_type.equals("customer") && isUser) {
+		} else if (user_type.equals("customer") && isUser != null) {
 			HttpSession session = request.getSession();
-			System.out.println(user.getName());
-			session.setAttribute("name", user.getName());
+			session.setAttribute("first_name", isUser.getName());
 			session.setAttribute("user_name", user_name);
 			session.setAttribute("user_type", "user");
 			response.sendRedirect("CustomerController");

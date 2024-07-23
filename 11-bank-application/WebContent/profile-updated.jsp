@@ -7,6 +7,10 @@
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
 </head>
 <body>
+<%
+  
+    String first_name = (String) session.getAttribute("first_name");
+  %>
 <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
 		<a class="navbar-brand" href="CustomerController">Home</a>
 		<div class="collapse navbar-collapse">
@@ -20,7 +24,7 @@
             <div class="card-body">
                 <h1 class="card-title">Profile Updated</h1>
                 <p class="card-text">Your profile has been successfully updated.</p>
-                <a href="CustomerController?action=home" class="btn btn-primary">Back to Home</a>
+                <a href="CustomerController?action=home&first_name=<%=first_name %>>" class="btn btn-primary">Back to Home</a>
             </div>
         </div>
     </div>

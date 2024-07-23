@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
   pageEncoding="ISO-8859-1"%>
-
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn"%>
 
 <!DOCTYPE html>
 <html>
@@ -62,8 +63,12 @@ body {
       <div class="text-center">
 		<button type="submit" class="btn btn-primary">Update</button>
 		<button type="button" class="btn btn-secondary" onclick="window.history.back();">Back</button>
+		
 		</div>
-      
+      <!-- Display error message if it exists -->
+		    <c:if test="${not empty errorMessage}">
+		        <p style="color: green;">${errorMessage}</p>
+		    </c:if>
     </form>
   </div>
 

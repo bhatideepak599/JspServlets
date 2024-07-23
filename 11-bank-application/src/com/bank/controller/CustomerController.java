@@ -91,7 +91,7 @@ public class CustomerController extends HttpServlet {
 		String acc = customerDbUtil.getAccountNumber(userName);
 
 		List<Transaction> transactions = transactionDbUtil.getTransactions(startDate, endDate, acc);
-		System.out.println(transactions);
+		//System.out.println(transactions);
 		request.setAttribute("theTransactionList", transactions);
 		RequestDispatcher requestDispatcher = request.getRequestDispatcher("/view-passbook.jsp");
 		try {
@@ -127,19 +127,40 @@ public class CustomerController extends HttpServlet {
 		}
 	}
 
-	private void addTransaction(HttpServletRequest request, HttpServletResponse response) throws SQLException {
+	private void addTransaction(HttpServletRequest request, HttpServletResponse response) throws SQLException, IOException {
 		String sender = request.getParameter("senderAccountNumber");
 		String receiver = request.getParameter("receiverAccountNumber");
 		double amount = Integer.parseInt(request.getParameter("amount"));
 		double Rbalance = customerDbUtil.getBalanceByAccount(receiver);
 		double Sbalance = customerDbUtil.getBalanceByAccount(sender);
-
-		if (!customerDbUtil.receiverAccountExists(receiver)) {
-			return;
+		String error=null;
+		
+		if(receiver==null) error="Account Number Can Not Be Empty";
+		else if(receiver.length()<9) error="Account Number Must Have 10 Digits";
+		
+		else if(receiver.equals(sender)) {
+			error="Account Number Can Not Be Same As Sender's Account ";
 		}
-		if (!customerDbUtil.amountExists(amount, sender)) {
-			return;
+		else if (!customerDbUtil.receiverAccountExists(receiver)) {
+			error="Transaction Failed , No Such Account Found";
 		}
+		else if(!customerDbUtil.amountExists(amount, sender)) error="Insufficient Account Balance";
+		if(error!=null) {
+			request.setAttribute("errorMessage", error);
+			request.setAttribute("senderAccountNumber", sender);
+			
+			RequestDispatcher requestDispatcher = request.getRequestDispatcher("/new-transaction.jsp");
+			try {
+				requestDispatcher.forward(request, response);
+				return;
+			} catch (ServletException | IOException e) {
+				e.printStackTrace();
+			}
+		}
+		
+		
+		
+		
 		customerDbUtil.debit(sender, amount);
 		customerDbUtil.credit(receiver, amount);
 
@@ -150,11 +171,20 @@ public class CustomerController extends HttpServlet {
 		transaction.setRbalance(Rbalance + amount);
 		transaction.setSbalance(Sbalance - amount);
 		transactionDbUtil.addTransaction(transaction);
-		try {
-		      response.sendRedirect("CustomerController?action=notifySuccess");
-		    } catch (IOException e) {
-		      e.printStackTrace();
-		    }
+		error="Transaction Successfull";
+		if(error!=null) {
+			request.setAttribute("errorMessage", error);
+			request.setAttribute("senderAccountNumber", sender);
+			
+			RequestDispatcher requestDispatcher = request.getRequestDispatcher("/new-transaction.jsp");
+			try {
+				requestDispatcher.forward(request, response);
+				return;
+			} catch (ServletException | IOException e) {
+				e.printStackTrace();
+			}
+		}
+		
 	}
 
 	private void editCustomer(HttpServletRequest request, HttpServletResponse response) {
@@ -173,6 +203,7 @@ public class CustomerController extends HttpServlet {
 		boolean updated = customerDbUtil.editCustomer(customer);
 		if (updated) {
 		      try {
+		    	request.setAttribute("first_name", firstName);
 		        response.sendRedirect("CustomerController?action=notifyUpdate");
 		      } catch (IOException e) {
 		        e.printStackTrace();
@@ -214,6 +245,8 @@ public class CustomerController extends HttpServlet {
 	}
 
 	private void notifyUpdate(HttpServletRequest request, HttpServletResponse response) {
+		String first_name=request.getParameter("first_name");
+		request.setAttribute("first_name", first_name);
 		RequestDispatcher requestDispatcher = request.getRequestDispatcher("profile-updated.jsp");
 		try {
 			requestDispatcher.forward(request, response);

@@ -685,3 +685,12 @@
 0:0:0:0:0:0:0:1 - - [22/Jul/2024:22:28:01 +0530] "GET /11-bank-application/AdminController HTTP/1.1" 200 2547
 0:0:0:0:0:0:0:1 - - [22/Jul/2024:22:29:17 +0530] "GET /11-bank-application/LogoutServlet HTTP/1.1" 302 -
 0:0:0:0:0:0:0:1 - - [22/Jul/2024:22:29:17 +0530] "GET /11-bank-application/Controller HTTP/1.1" 200 2716
+127.0.0.1 - - [22/Jul/2024:22:43:21 +0530] "GET / HTTP/1.1" 404 751
+0:0:0:0:0:0:0:1 - - [22/Jul/2024:22:43:23 +0530] "GET /11-bank-application/Controller HTTP/1.1" 200 2716
+0:0:0:0:0:0:0:1 - - [22/Jul/2024:22:43:31 +0530] "POST /11-bank-application/UserLoginController HTTP/1.1" 302 -
+0:0:0:0:0:0:0:1 - - [22/Jul/2024:22:43:31 +0530] "GET /11-bank-application/AdminController HTTP/1.1" 200 2547
+0:0:0:0:0:0:0:1 - - [22/Jul/2024:22:43:35 +0530] "GET /11-bank-application/AdminController?action=addnewCustomer HTTP/1.1" 200 2974
+0:0:0:0:0:0:0:1 - - [22/Jul/2024:22:44:05 +0530] "POST /11-bank-application/AdminController?action=insertCustomer HTTP/1.1" 302 -
+0:0:0:0:0:0:0:1 - - [22/Jul/2024:22:44:05 +0530] "GET /11-bank-application/AdminController?action=listCustomer HTTP/1.1" 200 4081
+0:0:0:0:0:0:0:1 - - [22/Jul/2024:22:44:17 +0530] "GET /11-bank-application/LogoutServlet HTTP/1.1" 302 -
+0:0:0:0:0:0:0:1 - - [22/Jul/2024:22:44:17 +0530] "GET /11-bank-application/Controller HTTP/1.1" 200 2716
