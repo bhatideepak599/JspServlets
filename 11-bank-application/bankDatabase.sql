@@ -22,3 +22,8 @@ CREATE TABLE transactions (
     Rbalance double,
     Sbalance double
 );
+create table admin (
+  user_name varchar(10) primary key,
+    password varchar(10)
+);
+insert into admin values("admin", "admin");
